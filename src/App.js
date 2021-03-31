@@ -1,41 +1,39 @@
-import React, {createContext} from "react";
-import firebase from "firebase/app";
+import React from "react";
 import "firebase/auth";
-import {FirebaseAuthProvider} from "@react-firebase/auth";
-import {
-    BrowserRouter as Router,
-    Switch,
-    Route
-} from "react-router-dom";
+import {connect} from "react-redux";
+import {BrowserRouter as Router, Route, Switch} from "react-router-dom";
 
 import PrivateRoute from "./components/PrivateRoute/PrivateRoute";
-import SecretPage from "./components/SecretPage/SecretPage";
-import PublicPage from "./components/PublicPage/PublicPage";
-import config from "./config";
+import Login from "./components/Login";
+import Home from "./components/Home";
 
-import useAuth from "./hooks/useAuth";
-
-export const authContext = createContext();
-
-const App = () => {
-    const auth = useAuth();
-
+const App = ({isAuthenticated, isVerifying}) => {
     return (
-        <FirebaseAuthProvider {...config} firebase={firebase}>
-            <authContext.Provider value={auth}>
-                <Router>
-                    <Switch>
-                        <Route exact path="/">
-                            <PublicPage/>
-                        </Route>
-                        <PrivateRoute path="/private">
-                            <SecretPage/>
-                        </PrivateRoute>
-                    </Switch>
-                </Router>
-            </authContext.Provider>
-        </FirebaseAuthProvider>
+        <Router>
+            <Switch>
+                <Route
+                    exact
+                    path="/login"
+                    component={Login}
+                />
+                <PrivateRoute
+                    exact
+                    path="/"
+                    component={Home}
+                    isAuthenticated={isAuthenticated}
+                    isVerifying={isVerifying}
+                />
+            </Switch>
+        </Router>
+
     );
 }
 
-export default App;
+function mapStateToProps(state) {
+    return {
+        isAuthenticated: state.auth.isAuthenticated,
+        isVerifying: state.auth.isVerifying
+    };
+}
+
+export default connect(mapStateToProps)(App);

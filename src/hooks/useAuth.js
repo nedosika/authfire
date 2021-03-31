@@ -1,30 +1,9 @@
-import React from 'react';
-import firebase from "firebase";
+import React, {createContext, useContext} from 'react';
+
+export const authContext = createContext();
 
 function useAuth() {
-    const [authUser, setAuthUser] = React.useState(null);
-
-    const signIn = () => {
-        const googleAuthProvider = new firebase.auth.GoogleAuthProvider();
-
-        return firebase
-            .auth()
-            .signInWithPopup(googleAuthProvider)
-            .then((cred) => setAuthUser({authUser: cred}))
-    }
-
-    const signOut = () => {
-        return firebase
-            .auth()
-            .signOut()
-            .then(() => setAuthUser(null))
-    }
-
-    return {
-        authUser,
-        signIn,
-        signOut
-    }
+    return useContext(authContext);
 }
 
 export default useAuth;
