@@ -2,12 +2,14 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import * as actions from "../../actions";
 import Layout from "../Layout/Layout";
+import Button from "@material-ui/core/Button";
 
 class Home extends Component {
     render() {
         const { isLoggingOut, logoutError, logoutUser } = this.props;
+
         return (
-            <Layout title="Home">
+            <Layout title="Home" logoutUser={logoutUser}>
                 <h1>This is your app's protected area.</h1>
                 <p>Any routes here will also be protected</p>
                 <button onClick={logoutUser}>Logout</button>
