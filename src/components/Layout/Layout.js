@@ -81,7 +81,7 @@ const useStyles = makeStyles((theme) => ({
     }
 }));
 
-export default function PersistentDrawerLeft({children, title, logoutUser}) {
+export default function PersistentDrawerLeft({children, title, logoutUser, categories}) {
     const classes = useStyles();
     const theme = useTheme();
     const [open, setOpen] = React.useState(false);
@@ -135,10 +135,10 @@ export default function PersistentDrawerLeft({children, title, logoutUser}) {
                 </div>
                 <Divider />
                 <List>
-                    {['Inbox', 'Starred', 'Send email', 'Drafts'].map((text, index) => (
-                        <ListItem button key={text}>
-                            <ListItemIcon>{index % 2 === 0 ? <InboxIcon /> : <MailIcon />}</ListItemIcon>
-                            <ListItemText primary={text} />
+                    {categories.map(item => item.parent === 0 && (
+                        <ListItem button key={item.id}>
+                            <ListItemIcon><MailIcon /></ListItemIcon>
+                            <ListItemText primary={item.name} />
                         </ListItem>
                     ))}
                 </List>

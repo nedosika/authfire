@@ -1,28 +1,32 @@
-import React, { Component } from "react";
-import { connect } from "react-redux";
+import React, {Component} from "react";
+import {connect} from "react-redux";
 import * as actions from "../../actions";
 import Layout from "../Layout/Layout";
-import Button from "@material-ui/core/Button";
+import MediaCard from "../MediaCard/MediaCard";
 
-class Home extends Component {
-    render() {
-        const { isLoggingOut, logoutError, logoutUser } = this.props;
+const Home = ({isLoggingOut, logoutError, logoutUser, categories}) => {
+    return (
+        <Layout title="Home" logoutUser={logoutUser} categories={categories}>
+            <h1>This is your app's protected area.</h1>
 
-        return (
-            <Layout title="Home" logoutUser={logoutUser}>
-                <h1>This is your app's protected area.</h1>
-                <p>Any routes here will also be protected</p>
-                <button onClick={logoutUser}>Logout</button>
-                {isLoggingOut && <p>Logging Out....</p>}
-                {logoutError && <p>Error logging out</p>}
-            </Layout>
-        );
-    }
+                <MediaCard/>
+                <MediaCard/>
+
+
+            <p>Any routes here will also be protected</p>
+            <button onClick={logoutUser}>Logout</button>
+            {isLoggingOut && <p>Logging Out....</p>}
+            {logoutError && <p>Error logging out</p>}
+        </Layout>
+    );
 }
+
 function mapStateToProps(state) {
     return {
         isLoggingOut: state.auth.isLoggingOut,
-        logoutError: state.auth.logoutError
+        logoutError: state.auth.logoutError,
+        categories: state.data.data
     };
 }
+
 export default connect(mapStateToProps, actions)(Home);

@@ -1,4 +1,6 @@
 import firebase from "firebase/app";
+import "firebase/database";
+import "firebase/storage";
 import "firebase/auth";
 import "firebase/firestore";
 
@@ -7,11 +9,12 @@ const firebaseConfig = {
     authDomain: "authentication-f3960.firebaseapp.com",
     projectId: "authentication-f3960",
     storageBucket: "authentication-f3960.appspot.com",
+    databaseURL: "https://authentication-f3960-default-rtdb.firebaseio.com",
     messagingSenderId: "158624910216",
     appId: "1:158624910216:web:dd65d04fb2dcbc1aa2483d",
     measurementId: "G-RVHG4081CD"
 };
 
 export const myFirebase = firebase.initializeApp(firebaseConfig);
-const baseDb = myFirebase.firestore();
-export const db = baseDb;
+export const db = myFirebase.database();
+export const st = myFirebase.storage();
