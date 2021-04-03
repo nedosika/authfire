@@ -5,6 +5,8 @@ import reportWebVitals from './reportWebVitals';
 import configureStore from "./configureStore";
 import {Provider} from "react-redux";
 
+import "./index.css";
+
 const store = configureStore();
 
 ReactDOM.render(
