@@ -19,6 +19,7 @@ import InboxIcon from '@material-ui/icons/MoveToInbox';
 import MailIcon from '@material-ui/icons/Mail';
 import Button from "@material-ui/core/Button";
 import CONFIG from "../../config";
+import {useMediaQuery} from "@material-ui/core";
 
 const drawerWidth = CONFIG.drawerWidth;
 
@@ -85,6 +86,7 @@ const useStyles = makeStyles((theme) => ({
 export default function PersistentDrawerLeft({children, title, logoutUser, categories}) {
     const classes = useStyles();
     const theme = useTheme();
+    const isMobile = useMediaQuery(theme.breakpoints.up('sm'));
     const [open, setOpen] = React.useState(false);
 
     const handleDrawerOpen = () => {
@@ -122,7 +124,7 @@ export default function PersistentDrawerLeft({children, title, logoutUser, categ
             </AppBar>
             <Drawer
                 className={classes.drawer}
-                variant="persistent"
+                variant={isMobile ? "persistent" : "temporary"}
                 anchor="left"
                 open={open}
                 classes={{
@@ -163,9 +165,10 @@ export default function PersistentDrawerLeft({children, title, logoutUser, categ
                 </List>
             </Drawer>
             <main
-                className={clsx(classes.content, {
-                    [classes.contentShift]: open,
-                })}
+                className={clsx(
+                    isMobile && classes.content,
+                    open && classes.contentShift
+                )}
             >
                 <div className={classes.drawerHeader} />
                 <Typography paragraph>
