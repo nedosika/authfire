@@ -20,6 +20,7 @@ import MailIcon from '@material-ui/icons/Mail';
 import Button from "@material-ui/core/Button";
 import CONFIG from "../../config";
 import {useMediaQuery} from "@material-ui/core";
+import { useHistory } from "react-router-dom";
 
 const drawerWidth = CONFIG.drawerWidth;
 
@@ -83,8 +84,9 @@ const useStyles = makeStyles((theme) => ({
     }
 }));
 
-export default function PersistentDrawerLeft({children, title, logoutUser, categories}) {
+export default function PersistentDrawerLeft({children, title, logoutUser, isAuthenticated}) {
     const classes = useStyles();
+    const history = useHistory();
     const theme = useTheme();
     const isMobile = useMediaQuery(theme.breakpoints.up('sm'));
     const [open, setOpen] = React.useState(false);
@@ -96,6 +98,10 @@ export default function PersistentDrawerLeft({children, title, logoutUser, categ
     const handleDrawerClose = () => {
         setOpen(false);
     };
+
+    const handleLoginClick = () => {
+        history.push("/login");
+    }
 
     return (
         <div className={classes.root}>
@@ -119,7 +125,10 @@ export default function PersistentDrawerLeft({children, title, logoutUser, categ
                     <Typography variant="h6" noWrap className={classes.title}>
                         {title}
                     </Typography>
-                    <Button color="inherit" onClick={logoutUser}>Logout</Button>
+                    {isAuthenticated
+                        ? <Button color="inherit" onClick={logoutUser}>Logout</Button>
+                        : <Button color="inherit" onClick={handleLoginClick}>Login</Button>
+                    }
                 </Toolbar>
             </AppBar>
             <Drawer
@@ -139,16 +148,18 @@ export default function PersistentDrawerLeft({children, title, logoutUser, categ
                 </div>
                 <Divider />
                 <List>
-                    {categories.map(item => item.parent === 0 && (
-                        <ListItem button key={item.id}>
-                            <ListItemIcon><MailIcon /></ListItemIcon>
-                            <ListItemText primary={item.name} />
-                        </ListItem>
-                    ))}
+                    <ListItem button>
+                        <ListItemIcon><MailIcon /></ListItemIcon>
+                        <ListItemText primary="Товары" />
+                    </ListItem>
+                    <ListItem button>
+                        <ListItemIcon><MailIcon /></ListItemIcon>
+                        <ListItemText primary="Категории" />
+                    </ListItem>
                 </List>
                 <Divider />
                 <List>
-                    {['All mail', 'Trash', 'Spam'].map((text, index) => (
+                    {['Выгрузить', 'Загрузить', 'Экспортировать', 'Импортировать'].map((text, index) => (
                         <ListItem button key={text}>
                             <ListItemIcon>{index % 2 === 0 ? <InboxIcon /> : <MailIcon />}</ListItemIcon>
                             <ListItemText primary={text} />
@@ -157,12 +168,20 @@ export default function PersistentDrawerLeft({children, title, logoutUser, categ
                 </List>
                 <Divider />
                 <List>
-                    <ListItem button onClick={logoutUser}>
-                        <ListItemIcon>
-                            <InboxIcon />
-                        </ListItemIcon>
-                        <ListItemText primary="Logout" />
-                    </ListItem>
+                    { isAuthenticated
+                        ? <ListItem button onClick={logoutUser}>
+                            <ListItemIcon>
+                                <InboxIcon/>
+                            </ListItemIcon>
+                            <ListItemText primary="Logout"/>
+                        </ListItem>
+                        : <ListItem button onClick={handleLoginClick}>
+                            <ListItemIcon>
+                                <InboxIcon/>
+                            </ListItemIcon>
+                            <ListItemText primary="Login"/>
+                        </ListItem>
+                    }
                 </List>
             </Drawer>
             <main

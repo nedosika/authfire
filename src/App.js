@@ -6,6 +6,7 @@ import {BrowserRouter as Router, Route, Switch} from "react-router-dom";
 import PrivateRoute from "./components/PrivateRoute/PrivateRoute";
 import Login from "./components/Login";
 import Home from "./components/Home";
+import Admin from "./components/Admin";
 
 const App = ({isAuthenticated, isVerifying}) => {
     return (
@@ -13,13 +14,17 @@ const App = ({isAuthenticated, isVerifying}) => {
             <Switch>
                 <Route
                     exact
+                    path="/"
+                    component={Home}
+                />
+                <Route
                     path="/login"
                     component={Login}
                 />
                 <PrivateRoute
                     exact
-                    path="/"
-                    component={Home}
+                    path="/admin"
+                    component={Admin}
                     isAuthenticated={isAuthenticated}
                     isVerifying={isVerifying}
                 />

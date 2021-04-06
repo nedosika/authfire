@@ -5,7 +5,7 @@ import Layout from "../Layout/Layout";
 import MediaCard from "../MediaCard/MediaCard";
 import Masonry from "react-masonry-css";
 
-const Home = ({isLoggingOut, logoutError, logoutUser, categories, isAuthenticated}) => {
+const Admin = ({isLoggingOut, logoutError, logoutUser, categories}) => {
     const breakpoints = {
         default: 4,
         1100: 3,
@@ -14,7 +14,7 @@ const Home = ({isLoggingOut, logoutError, logoutUser, categories, isAuthenticate
     }
 
     return (
-        <Layout title="Home" logoutUser={logoutUser} categories={categories} isAuthenticated={isAuthenticated}>
+        <Layout title="Home" logoutUser={logoutUser} categories={categories}>
             <h1>This is your app's protected area.</h1>
             <Masonry
                 breakpointCols={breakpoints}
@@ -25,6 +25,12 @@ const Home = ({isLoggingOut, logoutError, logoutUser, categories, isAuthenticate
                 <MediaCard/>
                 <MediaCard/>
             </Masonry>
+
+
+            <p>Any routes here will also be protected</p>
+            <button onClick={logoutUser}>Logout</button>
+            {isLoggingOut && <p>Logging Out....</p>}
+            {logoutError && <p>Error logging out</p>}
         </Layout>
     );
 }
@@ -33,9 +39,8 @@ function mapStateToProps(state) {
     return {
         isLoggingOut: state.auth.isLoggingOut,
         logoutError: state.auth.logoutError,
-        categories: state.data.data,
-        isAuthenticated: state.auth.isAuthenticated
+        categories: state.data.data
     };
 }
 
-export default connect(mapStateToProps, actions)(Home);
+export default connect(mapStateToProps, actions)(Admin);
