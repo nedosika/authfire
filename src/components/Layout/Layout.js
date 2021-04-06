@@ -149,11 +149,11 @@ export default function Layout({children, title, logoutUser, isAuthenticated, ge
                 {isAuthenticated && <>
                     <Divider/>
                     <List>
-                        <ListItem button>
+                        <ListItem button onClick={() => history.push("/goods")}>
                             <ListItemIcon><MailIcon/></ListItemIcon>
                             <ListItemText primary="Товары"/>
                         </ListItem>
-                        <ListItem button>
+                        <ListItem button onClick={() => history.push("/categories")}>
                             <ListItemIcon><MailIcon/></ListItemIcon>
                             <ListItemText primary="Категории"/>
                         </ListItem>

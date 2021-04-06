@@ -7,6 +7,8 @@ import PrivateRoute from "./components/PrivateRoute/PrivateRoute";
 import Login from "./components/Login";
 import Home from "./components/Home";
 import Admin from "./components/Admin";
+import Categories from "./components/Categories";
+import Goods from "./components/Goods";
 
 const App = ({isAuthenticated, isVerifying}) => {
     return (
@@ -26,6 +28,20 @@ const App = ({isAuthenticated, isVerifying}) => {
                     exact
                     path="/admin"
                     component={Admin}
+                    isAuthenticated={isAuthenticated}
+                    isVerifying={isVerifying}
+                />
+                <PrivateRoute
+                    exact
+                    path="/categories"
+                    component={Categories}
+                    isAuthenticated={isAuthenticated}
+                    isVerifying={isVerifying}
+                />
+                <PrivateRoute
+                    exact
+                    path="/goods"
+                    component={Goods}
                     isAuthenticated={isAuthenticated}
                     isVerifying={isVerifying}
                 />
