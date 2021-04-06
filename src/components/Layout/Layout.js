@@ -84,7 +84,7 @@ const useStyles = makeStyles((theme) => ({
     }
 }));
 
-export default function Layout({children, title, logoutUser, isAuthenticated, getData}) {
+export default function Layout({children, title, logoutUser, isAuthenticated, getData, sendData}) {
     const classes = useStyles();
     const history = useHistory();
     const theme = useTheme();
@@ -160,11 +160,11 @@ export default function Layout({children, title, logoutUser, isAuthenticated, ge
                     </List>
                     <Divider/>
                     <List>
-                        <ListItem button>
+                        <ListItem button onClick={sendData}>
                             <ListItemIcon><InboxIcon/></ListItemIcon>
                             <ListItemText primary="Выгрузить"/>
                         </ListItem>
-                        <ListItem button onClick={() => getData("webmenu")}>
+                        <ListItem button onClick={getData}>
                             <ListItemIcon><InboxIcon/></ListItemIcon>
                             <ListItemText primary="Загрузить"/>
                         </ListItem>

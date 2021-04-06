@@ -68,7 +68,7 @@ export const loginUser = (email, password) => dispatch => {
         .then(user => {
             dispatch(receiveLogin(user));
         })
-        .catch(error => {
+        .catch(() => {
             //Do something with the error if you want!
             dispatch(loginError());
         });

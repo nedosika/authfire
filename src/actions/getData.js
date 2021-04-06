@@ -1,5 +1,4 @@
 import {db} from "../firebase/firebase";
-import CONFIG from "../config";
 
 export const DATA_REQUEST = "DATA_REQUEST";
 export const DATA_SUCCESS = "DATA_SUCCESS";
@@ -25,9 +24,9 @@ const dataError = (msg) => {
     }
 }
 
-export const getData = (path = CONFIG.databasePath) => dispatch => {
+export const getData = () => dispatch => {
     dispatch(requestData());
-    db.ref(path)
+    db.ref()
         .get()
         .then((data) => dispatch(receiveData(data.val())))
         .catch((msg) => dispatch(dataError(msg)))

@@ -14,7 +14,12 @@ const Home = ({logoutUser, categories, isAuthenticated}) => {
     }
 
     return (
-        <Layout title="Home" logoutUser={logoutUser} categories={categories} isAuthenticated={isAuthenticated}>
+        <Layout
+            title="Home"
+            logoutUser={logoutUser}
+            categories={categories}
+            isAuthenticated={isAuthenticated}
+        >
             <Masonry
                 breakpointCols={breakpoints}
                 className="my-masonry-grid"
