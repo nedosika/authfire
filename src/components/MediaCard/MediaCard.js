@@ -7,11 +7,10 @@ import CardContent from '@material-ui/core/CardContent';
 import CardMedia from '@material-ui/core/CardMedia';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
-import {st} from "../../firebase/firebase";
 
 const useStyles = makeStyles({
     root: {
-        maxWidth: 245,
+        margin: 10,
     },
     media: {
         height: 140,
