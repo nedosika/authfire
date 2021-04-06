@@ -18,6 +18,7 @@ const App = ({isAuthenticated, isVerifying}) => {
                     component={Home}
                 />
                 <Route
+                    exact
                     path="/login"
                     component={Login}
                 />

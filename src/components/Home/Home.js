@@ -5,7 +5,7 @@ import Layout from "../Layout/Layout";
 import MediaCard from "../MediaCard/MediaCard";
 import Masonry from "react-masonry-css";
 
-const Home = ({isLoggingOut, logoutError, logoutUser, categories, isAuthenticated}) => {
+const Home = ({logoutUser, categories, isAuthenticated}) => {
     const breakpoints = {
         default: 4,
         1100: 3,
@@ -15,7 +15,6 @@ const Home = ({isLoggingOut, logoutError, logoutUser, categories, isAuthenticate
 
     return (
         <Layout title="Home" logoutUser={logoutUser} categories={categories} isAuthenticated={isAuthenticated}>
-            <h1>This is your app's protected area.</h1>
             <Masonry
                 breakpointCols={breakpoints}
                 className="my-masonry-grid"

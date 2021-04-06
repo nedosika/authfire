@@ -4,7 +4,7 @@ export default (
     state = {
         isFetchingData: false,
         dataError: false,
-        data: []
+        firestore: {}
     },
     action
 ) => {
@@ -20,7 +20,7 @@ export default (
                 ...state,
                 isFetchingData: false,
                 dataError: false,
-                data: action.data
+                firestore: action.data
             };
         case DATA_FAILURE:
             return {

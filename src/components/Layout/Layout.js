@@ -1,6 +1,6 @@
 import React from 'react';
 import clsx from 'clsx';
-import { makeStyles, useTheme } from '@material-ui/core/styles';
+import {makeStyles, useTheme} from '@material-ui/core/styles';
 import Drawer from '@material-ui/core/Drawer';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import AppBar from '@material-ui/core/AppBar';
@@ -20,7 +20,7 @@ import MailIcon from '@material-ui/icons/Mail';
 import Button from "@material-ui/core/Button";
 import CONFIG from "../../config";
 import {useMediaQuery} from "@material-ui/core";
-import { useHistory } from "react-router-dom";
+import {useHistory} from "react-router-dom";
 
 const drawerWidth = CONFIG.drawerWidth;
 
@@ -84,7 +84,7 @@ const useStyles = makeStyles((theme) => ({
     }
 }));
 
-export default function PersistentDrawerLeft({children, title, logoutUser, isAuthenticated}) {
+export default function Layout({children, title, logoutUser, isAuthenticated, getData}) {
     const classes = useStyles();
     const history = useHistory();
     const theme = useTheme();
@@ -105,7 +105,7 @@ export default function PersistentDrawerLeft({children, title, logoutUser, isAut
 
     return (
         <div className={classes.root}>
-            <CssBaseline />
+            <CssBaseline/>
             <AppBar
                 position="fixed"
                 className={clsx(classes.appBar, {
@@ -120,7 +120,7 @@ export default function PersistentDrawerLeft({children, title, logoutUser, isAut
                         edge="start"
                         className={clsx(classes.menuButton, open && classes.hide)}
                     >
-                        <MenuIcon />
+                        <MenuIcon/>
                     </IconButton>
                     <Typography variant="h6" noWrap className={classes.title}>
                         {title}
@@ -143,32 +143,44 @@ export default function PersistentDrawerLeft({children, title, logoutUser, isAut
             >
                 <div className={classes.drawerHeader}>
                     <IconButton onClick={handleDrawerClose}>
-                        {theme.direction === 'ltr' ? <ChevronLeftIcon /> : <ChevronRightIcon />}
+                        {theme.direction === 'ltr' ? <ChevronLeftIcon/> : <ChevronRightIcon/>}
                     </IconButton>
                 </div>
-                <Divider />
-                <List>
-                    <ListItem button>
-                        <ListItemIcon><MailIcon /></ListItemIcon>
-                        <ListItemText primary="Товары" />
-                    </ListItem>
-                    <ListItem button>
-                        <ListItemIcon><MailIcon /></ListItemIcon>
-                        <ListItemText primary="Категории" />
-                    </ListItem>
-                </List>
-                <Divider />
-                <List>
-                    {['Выгрузить', 'Загрузить', 'Экспортировать', 'Импортировать'].map((text, index) => (
-                        <ListItem button key={text}>
-                            <ListItemIcon>{index % 2 === 0 ? <InboxIcon /> : <MailIcon />}</ListItemIcon>
-                            <ListItemText primary={text} />
+                {isAuthenticated && <>
+                    <Divider/>
+                    <List>
+                        <ListItem button>
+                            <ListItemIcon><MailIcon/></ListItemIcon>
+                            <ListItemText primary="Товары"/>
                         </ListItem>
-                    ))}
-                </List>
-                <Divider />
+                        <ListItem button>
+                            <ListItemIcon><MailIcon/></ListItemIcon>
+                            <ListItemText primary="Категории"/>
+                        </ListItem>
+                    </List>
+                    <Divider/>
+                    <List>
+                        <ListItem button>
+                            <ListItemIcon><InboxIcon/></ListItemIcon>
+                            <ListItemText primary="Выгрузить"/>
+                        </ListItem>
+                        <ListItem button onClick={() => getData("webmenu")}>
+                            <ListItemIcon><InboxIcon/></ListItemIcon>
+                            <ListItemText primary="Загрузить"/>
+                        </ListItem>
+                        <ListItem button>
+                            <ListItemIcon><InboxIcon/></ListItemIcon>
+                            <ListItemText primary="Экспортировать"/>
+                        </ListItem>
+                        <ListItem button>
+                            <ListItemIcon><InboxIcon/></ListItemIcon>
+                            <ListItemText primary="Импортировать"/>
+                        </ListItem>
+                    </List>
+                </>}
+                <Divider/>
                 <List>
-                    { isAuthenticated
+                    {isAuthenticated
                         ? <ListItem button onClick={logoutUser}>
                             <ListItemIcon>
                                 <InboxIcon/>
@@ -190,7 +202,7 @@ export default function PersistentDrawerLeft({children, title, logoutUser, isAut
                     open && classes.contentShift
                 )}
             >
-                <div className={classes.drawerHeader} />
+                <div className={classes.drawerHeader}/>
                 <Typography paragraph>
                     {children}
                 </Typography>
