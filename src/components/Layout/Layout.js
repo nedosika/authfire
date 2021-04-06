@@ -130,6 +130,7 @@ export default function PersistentDrawerLeft({children, title, logoutUser, categ
                 classes={{
                     paper: classes.drawerPaper,
                 }}
+                onClose={handleDrawerClose}
             >
                 <div className={classes.drawerHeader}>
                     <IconButton onClick={handleDrawerClose}>
