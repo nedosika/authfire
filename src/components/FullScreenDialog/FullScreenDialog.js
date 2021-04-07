@@ -16,6 +16,10 @@ import TextField from "@material-ui/core/TextField";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
 import Container from "@material-ui/core/Container";
 import CssBaseline from "@material-ui/core/CssBaseline";
+import FormControl from "@material-ui/core/FormControl";
+import InputLabel from "@material-ui/core/InputLabel";
+import Select from "@material-ui/core/Select";
+import MenuItem from "@material-ui/core/MenuItem";
 
 const useStyles = makeStyles((theme) => ({
     appBar: {
@@ -33,10 +37,11 @@ const useStyles = makeStyles((theme) => ({
     },
     form: {
         width: '100%', // Fix IE 11 issue.
-        marginTop: theme.spacing(1),
     },
-    submit: {
-        margin: theme.spacing(3, 0, 2),
+    formControl: {
+        minWidth: 120,
+        marginTop: 15,
+        width: "100%"
     },
 }));
 
@@ -47,6 +52,11 @@ const Transition = React.forwardRef(function Transition(props, ref) {
 export default function FullScreenDialog() {
     const classes = useStyles();
     const [open, setOpen] = React.useState(false);
+    const [category, setCategory] = React.useState('');
+
+    const handleChange = (event) => {
+        setCategory(event.target.value);
+    };
 
     const handleClickOpen = () => {
         setOpen(true);
@@ -85,9 +95,9 @@ export default function FullScreenDialog() {
                                 required
                                 fullWidth
                                 id="email"
-                                label="Email Address"
-                                name="email"
-                                autoComplete="email"
+                                label="Name"
+                                name="name"
+                                autoComplete="name"
                                 autoFocus
                             />
                             <TextField
@@ -95,21 +105,27 @@ export default function FullScreenDialog() {
                                 margin="normal"
                                 required
                                 fullWidth
-                                name="password"
-                                label="Password"
-                                type="password"
+                                name="description"
+                                label="Description"
                                 id="password"
-                                autoComplete="current-password"
                             />
-                            <Button
-                                type="submit"
-                                fullWidth
-                                variant="contained"
-                                color="primary"
-                                className={classes.submit}
-                            >
-                                Sign In
-                            </Button>
+                            <FormControl variant="outlined" className={classes.formControl}>
+                                <InputLabel id="demo-simple-select-outlined-label">Category</InputLabel>
+                                <Select
+                                    labelId="demo-simple-select-outlined-label"
+                                    id="demo-simple-select-outlined"
+                                    value={category}
+                                    onChange={handleChange}
+                                    label="Category"
+                                >
+                                    <MenuItem value="">
+                                        <em>None</em>
+                                    </MenuItem>
+                                    <MenuItem value={10}>Ten</MenuItem>
+                                    <MenuItem value={20}>Twenty</MenuItem>
+                                    <MenuItem value={30}>Thirty</MenuItem>
+                                </Select>
+                            </FormControl>
                         </form>
                     </div>
                 </Container>
