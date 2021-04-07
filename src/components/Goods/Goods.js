@@ -4,6 +4,7 @@ import * as actions from "../../actions";
 import Layout from "../Layout/Layout";
 import MediaCard from "../MediaCard/MediaCard";
 import Masonry from "react-masonry-css";
+import FullScreenDialog from "../FullScreenDialog";
 
 const Goods = ({isLoggingOut, logoutError, categories, isAuthenticated, logoutUser, getData}) => {
     const breakpoints = {
@@ -21,6 +22,7 @@ const Goods = ({isLoggingOut, logoutError, categories, isAuthenticated, logoutUs
             getData={getData}
         >
             <h1>Goods</h1>
+            <FullScreenDialog/>
         </Layout>
     );
 }
