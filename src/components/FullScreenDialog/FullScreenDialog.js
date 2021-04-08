@@ -17,6 +17,7 @@ import InputLabel from "@material-ui/core/InputLabel";
 import Select from "@material-ui/core/Select";
 import MenuItem from "@material-ui/core/MenuItem";
 import Fab from "@material-ui/core/Fab";
+import CardMedia from "@material-ui/core/CardMedia";
 
 const useStyles = makeStyles((theme) => ({
     appBar: {
@@ -49,7 +50,11 @@ const Transition = React.forwardRef(function Transition(props, ref) {
 export default function FullScreenDialog() {
     const classes = useStyles();
     const [open, setOpen] = React.useState(false);
-    const [category, setCategory] = React.useState('');
+    const [category, setCategory] = React.useState("");
+    const [photo, setPhoto] = React.useState("");
+    const [name, setName] = React.useState("");
+    const [desc, setDesc] = React.useState("");
+    const [cost, setCost] = React.useState(0);
 
     const handleChange = (event) => {
         setCategory(event.target.value);
@@ -62,6 +67,17 @@ export default function FullScreenDialog() {
     const handleClose = () => {
         setOpen(false);
     };
+
+    const handleFileSelect = (event) => {
+        const file = event.target.files[0];
+        const reader = new FileReader();
+
+        reader.onload = function (e) {
+            setPhoto(JSON.stringify(e.target.result));
+        };
+
+        reader.readAsDataURL(file);
+    }
 
     return (
         <div>
@@ -96,6 +112,8 @@ export default function FullScreenDialog() {
                                 name="name"
                                 autoComplete="name"
                                 autoFocus
+                                value={name}
+                                onChange={(event) => setName(event.target.value)}
                             />
                             <TextField
                                 variant="outlined"
@@ -105,6 +123,8 @@ export default function FullScreenDialog() {
                                 name="description"
                                 label="Description"
                                 id="description"
+                                value={desc}
+                                onChange={(event) => setDesc(event.target.value)}
                             />
                             <TextField
                                 variant="outlined"
@@ -114,6 +134,8 @@ export default function FullScreenDialog() {
                                 name="cost"
                                 label="Cost"
                                 id="cost"
+                                value={cost}
+                                onChange={(event) => setCost(event.target.value)}
                             />
                             <FormControl variant="outlined" className={classes.formControl}>
                                 <InputLabel id="demo-simple-select-outlined-label">Category</InputLabel>
@@ -132,13 +154,24 @@ export default function FullScreenDialog() {
                                     <MenuItem value={30}>Thirty</MenuItem>
                                 </Select>
                             </FormControl>
+                            {photo &&
+                            <FormControl variant="outlined" className={classes.formControl}>
+                                <CardMedia
+                                    component="img"
+                                    alt="photo"
+                                    height="140"
+                                    image={JSON.parse(photo)}
+                                    title="photo"
+                                />
+                            </FormControl>}
                             <FormControl variant="outlined" className={classes.formControl}>
                                 <label htmlFor="upload-photo">
                                     <input
-                                        style={{ display: "none" }}
+                                        style={{display: "none"}}
                                         id="upload-photo"
                                         name="upload-photo"
                                         type="file"
+                                        onChange={handleFileSelect}
                                     />
                                     <Button color="primary" variant="contained" component="span">
                                         Choose photo
@@ -146,6 +179,7 @@ export default function FullScreenDialog() {
                                 </label>
                             </FormControl>
                         </form>
+
                     </div>
                 </Container>
             </Dialog>

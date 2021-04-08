@@ -21,7 +21,6 @@ const Goods = ({isLoggingOut, logoutError, categories, isAuthenticated, logoutUs
             isAuthenticated={isAuthenticated}
             getData={getData}
         >
-            <h1>Goods</h1>
             <FullScreenDialog/>
         </Layout>
     );
