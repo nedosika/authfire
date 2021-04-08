@@ -47,11 +47,11 @@ const Transition = React.forwardRef(function Transition(props, ref) {
     return <Slide direction="up" ref={ref} {...props} />;
 });
 
-export default function FullScreenDialog() {
+export default function FullScreenDialog({addProduct, categories}) {
     const classes = useStyles();
     const [open, setOpen] = React.useState(false);
     const [category, setCategory] = React.useState("");
-    const [photo, setPhoto] = React.useState("");
+    const [photo, setPhoto] = React.useState();
     const [title, setTitle] = React.useState("");
     const [desc, setDesc] = React.useState("");
     const [cost, setCost] = React.useState(0);
@@ -79,6 +79,23 @@ export default function FullScreenDialog() {
         reader.readAsDataURL(file);
     }
 
+    const handleSave = () => {
+        setOpen(false);
+        addProduct({
+            id: 10,
+            title,
+            desc,
+            cost,
+            img: photo,
+            category
+        });
+        setCategory("");
+        setPhoto();
+        setCost(0);
+        setDesc("");
+        setTitle("");
+    }
+
     return (
         <div>
             <Button variant="outlined" color="primary" onClick={handleClickOpen}>
@@ -93,7 +110,7 @@ export default function FullScreenDialog() {
                         <Typography variant="h6" className={classes.title}>
                             Add product
                         </Typography>
-                        <Button autoFocus color="inherit" onClick={handleClose}>
+                        <Button autoFocus color="inherit" onClick={handleSave}>
                             save
                         </Button>
                     </Toolbar>
@@ -149,9 +166,9 @@ export default function FullScreenDialog() {
                                     <MenuItem value="">
                                         <em>None</em>
                                     </MenuItem>
-                                    <MenuItem value={10}>Ten</MenuItem>
-                                    <MenuItem value={20}>Twenty</MenuItem>
-                                    <MenuItem value={30}>Thirty</MenuItem>
+                                    {
+                                        categories.map(item => <MenuItem value={item.id}>{item.name}</MenuItem>)
+                                    }
                                 </Select>
                             </FormControl>
                             {photo &&
@@ -179,7 +196,6 @@ export default function FullScreenDialog() {
                                 </label>
                             </FormControl>
                         </form>
-
                     </div>
                 </Container>
             </Dialog>

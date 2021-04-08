@@ -1,11 +1,14 @@
-import {DATA_REQUEST, DATA_SUCCESS, DATA_FAILURE} from "../actions";
+import {DATA_REQUEST, DATA_SUCCESS, DATA_FAILURE, ADD_PRODUCT} from "../actions";
 import {SEND_DATA_FAILURE, SEND_DATA_REQUEST, SEND_DATA_SUCCESS} from "../actions/sendData";
 
 export default (
     state = {
         isFetchingData: false,
         dataError: false,
-        firestore: {}
+        firestore: {
+            goods: [],
+            categories: []
+        }
     },
     action
 ) => {
@@ -46,6 +49,17 @@ export default (
                 ...state,
                 isSendingData: false,
                 dataError: true
+            }
+        case ADD_PRODUCT:
+            return {
+                ...state,
+                firestore: {
+                    ...state.firestore,
+                    goods: [
+                        ...state.firestore.goods,
+                        action.product
+                    ]
+                }
             }
         default:
             return state;

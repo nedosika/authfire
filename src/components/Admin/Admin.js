@@ -22,15 +22,6 @@ const Admin = ({isLoggingOut, logoutError, categories, isAuthenticated, logoutUs
             sendData={sendData}
         >
             <h1>This is your app's protected area.</h1>
-            <Masonry
-                breakpointCols={breakpoints}
-                className="my-masonry-grid"
-                columnClassName="my-masonry-grid_column">
-                <MediaCard/>
-                <MediaCard/>
-                <MediaCard/>
-                <MediaCard/>
-            </Masonry>
 
             <p>Any routes here will also be protected</p>
             <button onClick={logoutUser}>Logout</button>

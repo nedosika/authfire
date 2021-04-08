@@ -25,7 +25,7 @@ export default function MediaCard({product}) {
             <CardActionArea>
                 <CardMedia
                     className={classes.media}
-                    // image={product.img && JSON.parse(product.img)}
+                    image={product.img && JSON.parse(product.img)}
                     title={product.title}
                 />
                 <CardContent>

@@ -6,7 +6,7 @@ import MediaCard from "../MediaCard/MediaCard";
 import Masonry from "react-masonry-css";
 import FullScreenDialog from "../FullScreenDialog";
 
-const Goods = ({isLoggingOut, logoutError, categories, goods, isAuthenticated, logoutUser, getData}) => {
+const Goods = ({isLoggingOut, logoutError, categories=[], goods=[], isAuthenticated, logoutUser, getData, sendData, addProduct}) => {
     const breakpoints = {
         default: 4,
         1100: 3,
@@ -20,6 +20,7 @@ const Goods = ({isLoggingOut, logoutError, categories, goods, isAuthenticated, l
             logoutUser={logoutUser}
             isAuthenticated={isAuthenticated}
             getData={getData}
+            sendData={sendData}
         >
             <Masonry
                 breakpointCols={breakpoints}
@@ -32,7 +33,7 @@ const Goods = ({isLoggingOut, logoutError, categories, goods, isAuthenticated, l
                     )
                 }
             </Masonry>
-            <FullScreenDialog/>
+            <FullScreenDialog addProduct={addProduct} categories={categories}/>
         </Layout>
     );
 }
