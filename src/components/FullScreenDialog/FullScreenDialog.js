@@ -2,10 +2,6 @@ import React from 'react';
 import {makeStyles} from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
 import Dialog from '@material-ui/core/Dialog';
-import ListItemText from '@material-ui/core/ListItemText';
-import ListItem from '@material-ui/core/ListItem';
-import List from '@material-ui/core/List';
-import Divider from '@material-ui/core/Divider';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import IconButton from '@material-ui/core/IconButton';
@@ -13,13 +9,14 @@ import Typography from '@material-ui/core/Typography';
 import CloseIcon from '@material-ui/icons/Close';
 import Slide from '@material-ui/core/Slide';
 import TextField from "@material-ui/core/TextField";
-import FormControlLabel from "@material-ui/core/FormControlLabel";
+import AddIcon from "@material-ui/icons/Add";
 import Container from "@material-ui/core/Container";
 import CssBaseline from "@material-ui/core/CssBaseline";
 import FormControl from "@material-ui/core/FormControl";
 import InputLabel from "@material-ui/core/InputLabel";
 import Select from "@material-ui/core/Select";
 import MenuItem from "@material-ui/core/MenuItem";
+import Fab from "@material-ui/core/Fab";
 
 const useStyles = makeStyles((theme) => ({
     appBar: {
@@ -107,7 +104,16 @@ export default function FullScreenDialog() {
                                 fullWidth
                                 name="description"
                                 label="Description"
-                                id="password"
+                                id="description"
+                            />
+                            <TextField
+                                variant="outlined"
+                                margin="normal"
+                                required
+                                fullWidth
+                                name="cost"
+                                label="Cost"
+                                id="cost"
                             />
                             <FormControl variant="outlined" className={classes.formControl}>
                                 <InputLabel id="demo-simple-select-outlined-label">Category</InputLabel>
@@ -125,6 +131,19 @@ export default function FullScreenDialog() {
                                     <MenuItem value={20}>Twenty</MenuItem>
                                     <MenuItem value={30}>Thirty</MenuItem>
                                 </Select>
+                            </FormControl>
+                            <FormControl variant="outlined" className={classes.formControl}>
+                                <label htmlFor="upload-photo">
+                                    <input
+                                        style={{ display: "none" }}
+                                        id="upload-photo"
+                                        name="upload-photo"
+                                        type="file"
+                                    />
+                                    <Button color="primary" variant="contained" component="span">
+                                        Choose photo
+                                    </Button>
+                                </label>
                             </FormControl>
                         </form>
                     </div>
