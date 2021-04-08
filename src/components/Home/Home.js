@@ -20,15 +20,6 @@ const Home = ({logoutUser, categories, isAuthenticated}) => {
             categories={categories}
             isAuthenticated={isAuthenticated}
         >
-            <Masonry
-                breakpointCols={breakpoints}
-                className="my-masonry-grid"
-                columnClassName="my-masonry-grid_column">
-                <MediaCard/>
-                <MediaCard/>
-                <MediaCard/>
-                <MediaCard/>
-            </Masonry>
         </Layout>
     );
 }

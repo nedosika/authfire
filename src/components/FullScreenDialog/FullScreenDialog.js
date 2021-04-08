@@ -52,7 +52,7 @@ export default function FullScreenDialog() {
     const [open, setOpen] = React.useState(false);
     const [category, setCategory] = React.useState("");
     const [photo, setPhoto] = React.useState("");
-    const [name, setName] = React.useState("");
+    const [title, setTitle] = React.useState("");
     const [desc, setDesc] = React.useState("");
     const [cost, setCost] = React.useState(0);
 
@@ -107,13 +107,13 @@ export default function FullScreenDialog() {
                                 margin="normal"
                                 required
                                 fullWidth
-                                id="email"
-                                label="Name"
-                                name="name"
-                                autoComplete="name"
+                                id="title"
+                                label="Title"
+                                name="title"
+                                autoComplete="title"
                                 autoFocus
-                                value={name}
-                                onChange={(event) => setName(event.target.value)}
+                                value={title}
+                                onChange={(event) => setTitle(event.target.value)}
                             />
                             <TextField
                                 variant="outlined"

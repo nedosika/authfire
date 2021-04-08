@@ -5,6 +5,8 @@ import CardActionArea from '@material-ui/core/CardActionArea';
 import CardContent from '@material-ui/core/CardContent';
 import CardMedia from '@material-ui/core/CardMedia';
 import Typography from '@material-ui/core/Typography';
+import CardActions from "@material-ui/core/CardActions";
+import Button from "@material-ui/core/Button";
 
 const useStyles = makeStyles({
     root: {
@@ -15,7 +17,7 @@ const useStyles = makeStyles({
     },
 });
 
-export default function MediaCard() {
+export default function MediaCard({product}) {
     const classes = useStyles();
 
     return (
@@ -23,19 +25,26 @@ export default function MediaCard() {
             <CardActionArea>
                 <CardMedia
                     className={classes.media}
-                    image="https://firebasestorage.googleapis.com/v0/b/authentication-f3960.appspot.com/o/images%2Fcontemplative-reptile.jpg?alt=media&token=f83ac81c-a5fd-47c5-9441-001c6b024c63"
-                    title="Contemplative Reptile"
+                    // image={product.img && JSON.parse(product.img)}
+                    title={product.title}
                 />
                 <CardContent>
                     <Typography gutterBottom variant="h5" component="h2">
-                        Lizard
+                        {product.title}
                     </Typography>
                     <Typography variant="body2" color="textSecondary" component="p">
-                        Lizards are a widespread group of squamate reptiles, with over 6,000 species, ranging
-                        across all continents except Antarctica
+                        {product.desc}
                     </Typography>
                 </CardContent>
             </CardActionArea>
+            <CardActions>
+                <Button size="small" color="primary">
+                    Pay
+                </Button>
+                <Typography style={{marginLeft: 'auto',}} variant="h5" component="h2">
+                    {product.cost}$
+                </Typography>
+            </CardActions>
         </Card>
     );
 }

@@ -6,7 +6,7 @@ import MediaCard from "../MediaCard/MediaCard";
 import Masonry from "react-masonry-css";
 import FullScreenDialog from "../FullScreenDialog";
 
-const Goods = ({isLoggingOut, logoutError, categories, isAuthenticated, logoutUser, getData}) => {
+const Goods = ({isLoggingOut, logoutError, categories, goods, isAuthenticated, logoutUser, getData}) => {
     const breakpoints = {
         default: 4,
         1100: 3,
@@ -21,6 +21,17 @@ const Goods = ({isLoggingOut, logoutError, categories, isAuthenticated, logoutUs
             isAuthenticated={isAuthenticated}
             getData={getData}
         >
+            <Masonry
+                breakpointCols={breakpoints}
+                className="my-masonry-grid"
+                columnClassName="my-masonry-grid_column"
+            >
+                {
+                    goods.map(item =>
+                        <MediaCard product={item}/>
+                    )
+                }
+            </Masonry>
             <FullScreenDialog/>
         </Layout>
     );
@@ -30,7 +41,8 @@ function mapStateToProps(state) {
     return {
         isLoggingOut: state.auth.isLoggingOut,
         logoutError: state.auth.logoutError,
-        categories: state.data.data,
+        categories: state.data.firestore.categories,
+        goods: state.data.firestore.goods,
         isAuthenticated: state.auth.isAuthenticated
     };
 }
